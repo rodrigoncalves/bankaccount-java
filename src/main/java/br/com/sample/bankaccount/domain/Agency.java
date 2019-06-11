@@ -1,11 +1,13 @@
 package br.com.sample.bankaccount.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Agency
@@ -27,6 +29,10 @@ public class Agency {
     private String ag;
 
     private String address;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "agency", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<User> users;
 
 }
 

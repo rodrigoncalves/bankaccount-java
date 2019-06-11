@@ -18,15 +18,11 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-06-11T01:35:03.801Z")
-
 @AllArgsConstructor
 @Slf4j
 @Controller
 public class AgencyApiController implements AgencyApi {
 
-    private final ObjectMapper objectMapper;
-    private final HttpServletRequest request;
     private AgencyRepository agencyRepository;
 
     public ResponseEntity<Agency> addAgency(@ApiParam(value = "User object that needs to be added", required = true) @Valid @RequestBody Agency body) {
@@ -59,8 +55,8 @@ public class AgencyApiController implements AgencyApi {
         agency.setAg(body.getAg());
         agency.setAddress(body.getAddress());
 
-
-        return ResponseEntity.ok(agencyRepository.save(agency));
+        agency = agencyRepository.save(agency);
+        return ResponseEntity.ok(agency);
     }
 
 }

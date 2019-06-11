@@ -23,11 +23,11 @@ public interface UserApi {
 
     @ApiOperation(value = "Create user", nickname = "createUser", notes = "", tags = {"user",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "successful operation")})
+            @ApiResponse(code = 200, message = "successful operation", response = User.class)})
     @RequestMapping(value = "/user",
             produces = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Void> createUser(@ApiParam(value = "Created user object", required = true) @Valid @RequestBody User body);
+    ResponseEntity<User> createUser(@ApiParam(value = "Created user object", required = true) @Valid @RequestBody User body);
 
 
     @ApiOperation(value = "Delete user", nickname = "deleteUser", notes = "This can only be done by the logged in user.", tags = {"user",})
@@ -62,11 +62,12 @@ public interface UserApi {
 
     @ApiOperation(value = "Updated user", nickname = "updateUser", notes = "This can only be done by the logged in user.", tags = {"user",})
     @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "sucessful operation", response = User.class),
             @ApiResponse(code = 400, message = "Invalid user supplied"),
             @ApiResponse(code = 404, message = "User not found")})
     @RequestMapping(value = "/user/{userId}",
             produces = {"application/json"},
             method = RequestMethod.PUT)
-    ResponseEntity<Void> updateUser(@ApiParam(value = "name that need to be updated", required = true) @PathVariable("userId") Long userId, @ApiParam(value = "Updated user object", required = true) @Valid @RequestBody User body);
+    ResponseEntity<User> updateUser(@ApiParam(value = "name that need to be updated", required = true) @PathVariable("userId") Long userId, @ApiParam(value = "Updated user object", required = true) @Valid @RequestBody User body);
 
 }
