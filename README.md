@@ -16,3 +16,17 @@ You can view the api documentation in swagger-ui by pointing to
 http://localhost:8080/  
 
 Change default port value in application.properties
+
+## Docker
+
+Build:
+- mvn clean package
+- docker build -f Dockerfile -t banckaccount-java-app .
+
+Or get from public repository:
+- docker pull rodrigoncalves/bankaccount-java-app
+
+Run:
+- docker run -t --link mysql-docker-container:mysql -p 8087:8080 bankaccount-java-app
+
+ Now the hosted application can be access though http://localhost:8087
