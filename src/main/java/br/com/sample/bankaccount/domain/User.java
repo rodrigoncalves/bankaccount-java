@@ -24,7 +24,6 @@ public class User {
 
     private String name;
 
-    @Column
     private String email;
 
     private String cep;
