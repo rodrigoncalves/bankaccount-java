@@ -20,12 +20,13 @@ public interface AgencyApi {
 
     @ApiOperation(value = "Add a new agency", nickname = "addAgency", notes = "", tags = {"agency",})
     @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Created", response = Agency.class),
             @ApiResponse(code = 405, message = "Invalid input")})
     @RequestMapping(value = "/agency",
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.POST)
-    ResponseEntity<Void> addAgency(@ApiParam(value = "User object that needs to be added", required = true) @Valid @RequestBody Agency body);
+    ResponseEntity<Agency> addAgency(@ApiParam(value = "User object that needs to be added", required = true) @Valid @RequestBody Agency body);
 
 
     @ApiOperation(value = "Deletes an agency", nickname = "deleteAgency", notes = "", tags = {"agency",})
@@ -60,24 +61,15 @@ public interface AgencyApi {
 
     @ApiOperation(value = "Update an existing agency", nickname = "updateAgency", notes = "", tags = {"agency",})
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success operation"),
+            @ApiResponse(code = 200, message = "Success operation", response = Agency.class),
             @ApiResponse(code = 400, message = "Invalid ID supplied"),
             @ApiResponse(code = 404, message = "Agency not found"),
             @ApiResponse(code = 405, message = "Validation exception")})
-    @RequestMapping(value = "/agency",
+    @RequestMapping(value = "/agency/{agencyId}",
             produces = {"application/json"},
             consumes = {"application/json"},
             method = RequestMethod.PUT)
-    ResponseEntity<Void> updateAgency(@ApiParam(value = "", required = true) @Valid @RequestBody Agency body);
-
-
-    @ApiOperation(value = "Updates an agency in the store with form data", nickname = "updateAgencyWithForm", notes = "", tags = {"agency",})
-    @ApiResponses(value = {
-            @ApiResponse(code = 405, message = "Invalid input")})
-    @RequestMapping(value = "/agency/{agencyId}",
-            produces = {"application/json"},
-            consumes = {"application/x-www-form-urlencoded"},
-            method = RequestMethod.POST)
-    ResponseEntity<Void> updateAgencyWithForm(@ApiParam(value = "ID of agency that needs to be updated", required = true) @PathVariable("agencyId") Long agencyId, @ApiParam(value = "Updated name of the agency") @RequestParam(value = "name", required = false) String name, @ApiParam(value = "Updated status of the agency") @RequestParam(value = "status", required = false) String status);
+    ResponseEntity<Agency> updateAgency(@ApiParam(value = "ID of agency that needs to be updated", required = true) @PathVariable("agencyId") Long agencyId,
+                                        @ApiParam(value = "", required = true) @Valid @RequestBody Agency body);
 
 }
